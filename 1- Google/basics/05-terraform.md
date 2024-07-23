@@ -128,3 +128,12 @@ resource "google_storage_bucket" "example_bucket" {
 ```
 terraform apply --auto-approve --var "instance_name=myinstance" --var "instance_zone=europe-west4-b"
 ```
+
+### View Dependency Graph
+```
+terraform graph | dot -Tsvg > graph.svg
+```
+
+```
+gsutil cp graph.svc gs://bucket
+```
