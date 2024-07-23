@@ -43,3 +43,4 @@ gsutil acl ch -u AllUsers:R gs://YOUR-BUCKET-NAME/ada.jpg
 
 
 
+

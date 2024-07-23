@@ -70,3 +70,4 @@ DATA=$(printf 'Hello World!'|base64) && gcloud functions call helloWorld --data 
 gcloud functions logs read helloWorld
 ```
 
+

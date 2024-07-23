@@ -69,3 +69,4 @@ gcloud pubsub topics publish myTopic --message "Publisher will have to test to f
 ```
 gcloud pubsub subscriptions pull mySubscription --auto-ack --limit=3
 ```
+
