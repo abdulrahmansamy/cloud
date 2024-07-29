@@ -41,7 +41,6 @@ gcloud container clusters get-credentials hello-cluster --zone $ZONE
 
 
 kubectl create namespace prod
-
 kubectl create namespace dev
 ```
 
@@ -76,20 +75,26 @@ git push -u origin dev
 ### Task 3. Create the Cloud Build Triggers
 
 ```
-gcloud builds triggers create cloud-source-repositories --name=sample-app-prod-deploy --repo=sample-app --branch-pattern='^master$' --build-config=cloudbuild.yaml --service-account=$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com
+gcloud builds triggers create cloud-source-repositories --name=sample-app-prod-deploy --repo=sample-app \
+ --build-config=cloudbuild.yaml --service-account=$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com \
+ --branch-pattern='^master$'
 
 
 
 
-gcloud beta builds triggers create cloud-source-repositories --name=sample-app-dev-deploy --repo=sample-app --branch-pattern='^dev$' --build-config=cloudbuild-dev.yaml --service-account=$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com
+gcloud beta builds triggers create cloud-source-repositories --name=sample-app-dev-deploy \
+--repo=sample-app --build-config=cloudbuild-dev.yaml \
+--service-account=$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com  --branch-pattern='^dev$'
 ```
 
 ### Task 4. Deploy the first versions of the application
 
+#### Build the first development deployment
 ```
 git checkout dev
 sed -i "s/<version>/v1.0/g" cloudbuild-dev.yaml
-sed -i "s/<todo>/us-west1-docker.pkg.dev\/$PROJECT_ID\/my-repository\/hello-cloudbuild-dev:v1.0/g" dev/deployment.yaml
+sed -i "s/<todo>/us-west1-docker.pkg.dev\/$PROJECT_ID\/my-repository\/hello-cloudbuild-dev:v1.0/g" \
+dev/deployment.yaml
 
 git commit -am "dev v1.0"
 git push -u origin dev
@@ -104,11 +109,14 @@ kubectl expose deployment development-deployment --port=8080 --target-port=8080 
         --name=development-deployment-service --type=LoadBalancer -n dev
 ```
 
+#### Build the first production deployment
+
 ```
 git checkout master
 
 sed -i "s/<version>/v1.0/g" cloudbuild.yaml
-sed -i "s/<todo>/us-west1-docker.pkg.dev\/$PROJECT_ID\/my-repository\/hello-cloudbuild:v1.0/g" prod/deployment.yaml
+sed -i "s/<todo>/us-west1-docker.pkg.dev\/$PROJECT_ID\/my-repository\/hello-cloudbuild:v1.0/g" \
+prod/deployment.yaml
 
 git commit -am "prod v1.0"
 git push -u origin master
@@ -125,26 +133,29 @@ kubectl expose deployment production-deployment --port=8080 --target-port=8080 \
 
 ### Task 5. Deploy the second versions of the application
 
+#### Build the second development deployment
 ```
 git checkout dev
 
 sed -i "s/v1.0/v2.0/g" cloudbuild-dev.yaml
 sed -i "s/v1.0/v2.0/g" dev/deployment.yaml
+
 edit main.go
 ```
 
-
 ```
-
 git commit -am "dev v2.0"
 git push -u origin dev
 ```
 
+
+#### Build the second production deployment
 ```
 git checkout master
 
 sed -i "s/v1.0/v2.0/g" cloudbuild.yaml
 sed -i "s/v1.0/v2.0/g" prod/deployment.yaml
+
 edit main.go
 ```
 ```
@@ -153,10 +164,17 @@ git push -u origin master
 ```
 
 ### Task 6. Roll back the production deployment
+
+```
+kubectl -n prod get pods -o jsonpath \
+  --template='{range .items[*]}{.metadata.name}{"\t"}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
+```
+
 ```
 kubectl rollout undo deployment production-deployment  -n prod
 ```
 
 ```
-kubectl -n prod get pods -o jsonpath --template='{range .items[*]}{.metadata.name}{"\t"}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
+kubectl -n prod get pods -o jsonpath \
+  --template='{range .items[*]}{.metadata.name}{"\t"}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
 ```
