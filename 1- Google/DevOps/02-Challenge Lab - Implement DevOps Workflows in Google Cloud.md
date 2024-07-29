@@ -110,6 +110,10 @@ kubectl expose deployment development-deployment --port=8080 --target-port=8080 
         --name=development-deployment-service --type=LoadBalancer -n dev
 ```
 
+```
+curl ip:/blue
+```
+
 ### Build the first production deployment
 
 ```
@@ -132,6 +136,10 @@ kubectl expose deployment production-deployment --port=8080 --target-port=8080 \
         --name=production-deployment-service --type=LoadBalancer -n prod
 ```
 
+```
+curl ip:/blue
+```
+
 ## Task 5. Deploy the second versions of the application
 ### Build the second development deployment
 ```
@@ -148,6 +156,9 @@ git commit -am "dev v2.0"
 git push -u origin dev
 ```
 
+```
+curl ip:/red
+```
 
 ### Build the second production deployment
 ```
@@ -161,6 +172,10 @@ edit main.go
 ```
 git commit -am "prod v2.0"
 git push -u origin master
+```
+
+```
+curl ip:/red
 ```
 
 ## Task 6. Roll back the production deployment
