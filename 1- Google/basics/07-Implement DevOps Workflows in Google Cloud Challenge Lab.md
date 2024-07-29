@@ -1,4 +1,5 @@
-### Task 1. Create the lab resources
+# Challenge Lab: Implement DevOps Workflows in Google Cloud
+## Task 1. Create the lab resources
 ```
 gcloud auth list
 
@@ -45,7 +46,7 @@ kubectl create namespace prod
 kubectl create namespace dev
 ```
 
-### Task 2. Create a repository in Cloud Source Repositories
+## Task 2. Create a repository in Cloud Source Repositories
 ```
 gcloud source repos create sample-app
 
@@ -73,7 +74,7 @@ git checkout -b dev
 git push -u origin dev
 
 ```
-### Task 3. Create the Cloud Build Triggers
+## Task 3. Create the Cloud Build Triggers
 
 ```
 gcloud builds triggers create cloud-source-repositories --name=sample-app-prod-deploy --repo=sample-app \
@@ -88,9 +89,8 @@ gcloud beta builds triggers create cloud-source-repositories --name=sample-app-d
 --service-account=$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com  --branch-pattern='^dev$'
 ```
 
-### Task 4. Deploy the first versions of the application
-
-#### Build the first development deployment
+## Task 4. Deploy the first versions of the application
+### Build the first development deployment
 ```
 git checkout dev
 sed -i "s/<version>/v1.0/g" cloudbuild-dev.yaml
@@ -110,7 +110,7 @@ kubectl expose deployment development-deployment --port=8080 --target-port=8080 
         --name=development-deployment-service --type=LoadBalancer -n dev
 ```
 
-#### Build the first production deployment
+### Build the first production deployment
 
 ```
 git checkout master
@@ -132,9 +132,8 @@ kubectl expose deployment production-deployment --port=8080 --target-port=8080 \
         --name=production-deployment-service --type=LoadBalancer -n prod
 ```
 
-### Task 5. Deploy the second versions of the application
-
-#### Build the second development deployment
+## Task 5. Deploy the second versions of the application
+### Build the second development deployment
 ```
 git checkout dev
 
@@ -150,7 +149,7 @@ git push -u origin dev
 ```
 
 
-#### Build the second production deployment
+### Build the second production deployment
 ```
 git checkout master
 
@@ -164,7 +163,7 @@ git commit -am "prod v2.0"
 git push -u origin master
 ```
 
-### Task 6. Roll back the production deployment
+## Task 6. Roll back the production deployment
 
 ```
 kubectl -n prod get pods -o jsonpath \
