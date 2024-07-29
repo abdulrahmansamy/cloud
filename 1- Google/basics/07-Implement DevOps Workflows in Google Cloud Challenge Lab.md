@@ -35,7 +35,8 @@ git config --global user.email email@email.com
 git config --global user.name mail
 
 
-gcloud beta container clusters create hello-cluster --zone $ZONE --release-channel regular --enable-autoscaling  --min-nodes 2 --max-nodes 6 --num-nodes 3 --cluster-version=1.29
+gcloud beta container clusters create hello-cluster --zone $ZONE --release-channel regular --enable-autoscaling \
+ --min-nodes 2 --max-nodes 6 --num-nodes 3 --cluster-version=1.29
 
 gcloud container clusters get-credentials hello-cluster --zone $ZONE
 
