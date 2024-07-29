@@ -165,15 +165,16 @@ git push -u origin master
 
 ## Task 6. Roll back the production deployment
 
+Check the containers version before the roll back
 ```
 kubectl -n prod get pods -o jsonpath \
   --template='{range .items[*]}{.metadata.name}{"\t"}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
 ```
-
+Perform the roll back
 ```
 kubectl rollout undo deployment production-deployment  -n prod
 ```
-
+Check the containers version after the roll back
 ```
 kubectl -n prod get pods -o jsonpath \
   --template='{range .items[*]}{.metadata.name}{"\t"}{"\t"}{.spec.containers[0].image}{"\n"}{end}'
