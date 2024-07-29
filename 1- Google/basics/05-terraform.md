@@ -137,3 +137,5 @@ terraform graph | dot -Tsvg > graph.svg
 ```
 gsutil cp graph.svc gs://bucket
 ```
+
+https://developer.hashicorp.com/terraform/internals/graph
