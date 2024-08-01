@@ -1,4 +1,4 @@
-# Challenge Lab: Implement DevOps Workflows in Google Cloud
+# Implement DevOps Workflows in Google Cloud: Challenge Lab
 ## Task 1. Create the lab resources
 ```
 gcloud auth list
@@ -37,7 +37,20 @@ git config --global user.name mail
 
 
 gcloud beta container clusters create hello-cluster --zone $ZONE --release-channel regular --enable-autoscaling \
- --min-nodes 2 --max-nodes 6 --num-nodes 3 --cluster-version=1.29
+ --min-nodes 2 --max-nodes 6 --num-nodes 3 --cluster-version=1.29 --async
+
+gcloud container clusters list --format="csv(name,status)"
+
+while gcloud container clusters list --format="csv(name,status)" | grep -q PROVISIONING
+do
+    echo "Cluster still in Provisioning State"
+    sleep 2
+done
+
+gcloud container clusters list --format="csv(name,status)"
+
+echo -e "\n\t### Cluster in Running State ###\n"
+
 
 gcloud container clusters get-credentials hello-cluster --zone $ZONE
 
