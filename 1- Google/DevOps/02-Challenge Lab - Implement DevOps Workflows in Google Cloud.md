@@ -6,8 +6,8 @@ gcloud auth list
 export PROJECT_ID=$(gcloud config get-value project)
 export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format='value(projectNumber)')
 
-export REGION=us-west1
-export ZONE=us-west1-c
+export REGION=us-east1
+export ZONE=$REGION-c
 ```
 
 ```
@@ -34,11 +34,21 @@ gcloud artifacts repositories create my-repository \
 
 git config --global user.email email@email.com
 git config --global user.name mail
+```
 
-
+```
 gcloud beta container clusters create hello-cluster --zone $ZONE --release-channel regular --enable-autoscaling \
  --min-nodes 2 --max-nodes 6 --num-nodes 3 --cluster-version=1.29 --async
+```
+```
 
+gcloud container clusters create "hello-cluster" --zone $ZONE --no-enable-basic-auth --cluster-version "use cluster version given in lab instruction" --release-channel "regular" --machine-type "e2-medium" --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "100" --metadata disable-legacy-endpoints=true --scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" --max-pods-per-node "110" --num-nodes "3" --logging=SYSTEM,WORKLOAD --monitoring=SYSTEM --enable-ip-alias --default-max-pods-per-node "110" --enable-autoscaling --min-nodes "2" --max-nodes "6" --no-enable-master-authorized-networks --addons HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver --enable-managed-prometheus --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 --node-locations $ZONE
+ 
+
+```
+
+
+```
 gcloud container clusters list --format="csv(name,status)"
 
 while gcloud container clusters list --format="csv(name,status)" | grep -q PROVISIONING
