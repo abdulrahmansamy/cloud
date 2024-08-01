@@ -111,7 +111,9 @@ kubectl expose deployment development-deployment --port=8080 --target-port=8080 
 ```
 
 ```
-curl ip:/blue
+kubectl get svc development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+
+curl `kubectl get svc development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
 ```
 
 ### Build the first production deployment
@@ -137,7 +139,7 @@ kubectl expose deployment production-deployment --port=8080 --target-port=8080 \
 ```
 
 ```
-curl ip:/blue
+curl `kubectl get svc development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
 ```
 
 ## Task 5. Deploy the second versions of the application
@@ -148,16 +150,30 @@ git checkout dev
 sed -i "s/v1.0/v2.0/g" cloudbuild-dev.yaml
 sed -i "s/v1.0/v2.0/g" dev/deployment.yaml
 
-edit main.go
+# edit main.go
 ```
+```
+sed -i '/http.HandleFunc("\/blue", blueHandler)/a\ \thttp.HandleFunc("/red", redHandler)' main.go
 
+cat << EOF >> main.go
+
+func redHandler(w http.ResponseWriter, r *http.Request) {
+	img := image.NewRGBA(image.Rect(0, 0, 100, 100))
+	draw.Draw(img, img.Bounds(), &image.Uniform{color.RGBA{255, 0, 0, 255}}, image.ZP, draw.Src)
+	w.Header().Set("Content-Type", "image/png")
+	png.Encode(w, img)
+}
+EOF
+```
 ```
 git commit -am "dev v2.0"
 git push -u origin dev
 ```
 
 ```
-curl ip:/red
+kubectl get svc development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+
+curl `kubectl get svc development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/red
 ```
 
 ### Build the second production deployment
@@ -167,7 +183,20 @@ git checkout master
 sed -i "s/v1.0/v2.0/g" cloudbuild.yaml
 sed -i "s/v1.0/v2.0/g" prod/deployment.yaml
 
-edit main.go
+# edit main.go
+```
+```
+sed -i '/http.HandleFunc("\/blue", blueHandler)/a\ \thttp.HandleFunc("/red", redHandler)' main.go
+
+cat << EOF >> main.go
+
+func redHandler(w http.ResponseWriter, r *http.Request) {
+	img := image.NewRGBA(image.Rect(0, 0, 100, 100))
+	draw.Draw(img, img.Bounds(), &image.Uniform{color.RGBA{255, 0, 0, 255}}, image.ZP, draw.Src)
+	w.Header().Set("Content-Type", "image/png")
+	png.Encode(w, img)
+}
+EOF
 ```
 ```
 git commit -am "prod v2.0"
@@ -175,7 +204,7 @@ git push -u origin master
 ```
 
 ```
-curl ip:/red
+curl `kubectl get svc development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/red
 ```
 
 ## Task 6. Roll back the production deployment
