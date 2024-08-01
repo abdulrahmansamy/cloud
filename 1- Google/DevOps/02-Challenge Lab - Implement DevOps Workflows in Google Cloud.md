@@ -98,7 +98,7 @@ git push -u origin dev
 
 ```
 gcloud builds triggers create cloud-source-repositories --name=sample-app-prod-deploy --repo=sample-app \
- --build-config=cloudbuild.yaml --service-account=$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com \
+ --build-config=cloudbuild.yaml --service-account="projects/$PROJECT_ID/serviceAccounts/$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
  --branch-pattern='^master$'
 
 
@@ -106,7 +106,7 @@ gcloud builds triggers create cloud-source-repositories --name=sample-app-prod-d
 
 gcloud beta builds triggers create cloud-source-repositories --name=sample-app-dev-deploy \
 --repo=sample-app --build-config=cloudbuild-dev.yaml \
---service-account=$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com  --branch-pattern='^dev$'
+--service-account="projects/$PROJECT_ID/serviceAccounts/$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com"  --branch-pattern='^dev$'
 ```
 
 ## Task 4. Deploy the first versions of the application
