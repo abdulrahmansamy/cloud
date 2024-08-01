@@ -131,7 +131,7 @@ kubectl expose deployment development-deployment --port=8080 --target-port=8080 
 ```
 
 ```
-kubectl get svc development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+kubectl get svc -n dev development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
 
 echo  http://`kubectl get svc -n dev development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
@@ -162,13 +162,14 @@ kubectl expose deployment production-deployment --port=8080 --target-port=8080 \
 ```
 
 ```
-kubectl get svc -n prod development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+kubectl get svc -n prod production-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
-echo  http://`kubectl get svc -n prod development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
+echo
+echo  http://`kubectl get svc -n prod production-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
 
-echo  http://`kubectl get svc -n prod development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/red
+echo  http://`kubectl get svc -n prod production-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/red
 
-curl -s  http://`kubectl get svc -n prod development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
+curl -s  http://`kubectl get svc -n prod production-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
 ```
 
 ## Task 5. Deploy the second versions of the application
