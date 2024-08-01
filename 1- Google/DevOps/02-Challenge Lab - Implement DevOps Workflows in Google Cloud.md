@@ -114,7 +114,7 @@ gcloud beta builds triggers create cloud-source-repositories --name=sample-app-d
 ```
 git checkout dev
 sed -i "s/<version>/v1.0/g" cloudbuild-dev.yaml
-sed -i "s/<todo>/us-west1-docker.pkg.dev\/$PROJECT_ID\/my-repository\/hello-cloudbuild-dev:v1.0/g" \
+sed -i "s/<todo>/${REGION}-docker.pkg.dev\/$PROJECT_ID\/my-repository\/hello-cloudbuild-dev:v1.0/g" \
 dev/deployment.yaml
 
 git commit -am "dev v1.0"
@@ -133,7 +133,10 @@ kubectl expose deployment development-deployment --port=8080 --target-port=8080 
 ```
 kubectl get svc development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
-curl `kubectl get svc development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
+
+echo  http://`kubectl get svc -n dev development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
+
+echo  http://`kubectl get svc -n dev development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/red
 ```
 
 ### Build the first production deployment
@@ -142,7 +145,7 @@ curl `kubectl get svc development-deployment-service -o jsonpath='{.status.loadB
 git checkout master
 
 sed -i "s/<version>/v1.0/g" cloudbuild.yaml
-sed -i "s/<todo>/us-west1-docker.pkg.dev\/$PROJECT_ID\/my-repository\/hello-cloudbuild:v1.0/g" \
+sed -i "s/<todo>/${REGION}-docker.pkg.dev\/$PROJECT_ID\/my-repository\/hello-cloudbuild:v1.0/g" \
 prod/deployment.yaml
 
 git commit -am "prod v1.0"
@@ -159,7 +162,12 @@ kubectl expose deployment production-deployment --port=8080 --target-port=8080 \
 ```
 
 ```
-curl `kubectl get svc development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
+kubectl get svc -n dev development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+echo  http://`kubectl get svc -n prod development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
+
+echo  http://`kubectl get svc -n prod development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/red
+
+curl -s  http://`kubectl get svc -n prod development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
 ```
 
 ## Task 5. Deploy the second versions of the application
@@ -191,9 +199,12 @@ git push -u origin dev
 ```
 
 ```
-kubectl get svc development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+kubectl get svc -n dev development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
-curl `kubectl get svc development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/red
+
+echo  http://`kubectl get svc -n dev development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
+
+echo  http://`kubectl get svc -n dev development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/red
 ```
 
 ### Build the second production deployment
