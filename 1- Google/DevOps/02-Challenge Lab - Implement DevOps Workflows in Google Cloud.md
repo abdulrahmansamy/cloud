@@ -162,7 +162,8 @@ kubectl expose deployment production-deployment --port=8080 --target-port=8080 \
 ```
 
 ```
-kubectl get svc -n dev development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+kubectl get svc -n prod development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+
 echo  http://`kubectl get svc -n prod development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
 
 echo  http://`kubectl get svc -n prod development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/red
@@ -235,7 +236,11 @@ git push -u origin master
 ```
 
 ```
-curl `kubectl get svc development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/red
+kubectl get svc -n prod development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+
+echo  http://`kubectl get svc -n prod development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
+
+echo  http://`kubectl get svc -n prod development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/red
 ```
 
 ## Task 6. Roll back the production deployment
