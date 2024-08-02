@@ -1,5 +1,5 @@
 # Continuous Delivery with Google Cloud Deploy
-
+# [Lab URL](https://partner.cloudskillsboost.google/course_templates/691/labs/498133)
 touch script.sh && chmod +x $_ && ll $_ && edit $_
 
 sh $_
