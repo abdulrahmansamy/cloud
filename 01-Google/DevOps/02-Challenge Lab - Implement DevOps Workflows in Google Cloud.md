@@ -103,9 +103,6 @@ gcloud builds triggers create cloud-source-repositories --name=sample-app-prod-d
  --build-config=cloudbuild.yaml --service-account="projects/$PROJECT_ID/serviceAccounts/$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
  --branch-pattern='^master$'
 
-
-
-
 gcloud beta builds triggers create cloud-source-repositories --name=sample-app-dev-deploy \
 --repo=sample-app --build-config=cloudbuild-dev.yaml \
 --service-account="projects/$PROJECT_ID/serviceAccounts/$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com"  --branch-pattern='^dev$'
@@ -124,7 +121,7 @@ git push -u origin dev
 ```
 
 ```
-sleep 60
+sleep 30
 ```
 
 ```
@@ -133,8 +130,9 @@ kubectl expose deployment development-deployment --port=8080 --target-port=8080 
 ```
 
 ```
+sleep 20
 kubectl get svc -n dev development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
-
+echo
 
 echo  http://`kubectl get svc -n dev development-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/blue
 
@@ -155,7 +153,7 @@ git push -u origin master
 ```
 
 ```
-sleep 60
+sleep 30
 ```
 
 ```
@@ -164,6 +162,7 @@ kubectl expose deployment production-deployment --port=8080 --target-port=8080 \
 ```
 
 ```
+sleep 20
 kubectl get svc -n prod production-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
 echo
