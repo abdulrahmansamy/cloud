@@ -122,9 +122,7 @@ git push -u origin dev
 
 ```
 sleep 30
-```
 
-```
 kubectl expose deployment development-deployment --port=8080 --target-port=8080 \
         --name=development-deployment-service --type=LoadBalancer -n dev
 ```
@@ -154,15 +152,13 @@ git push -u origin master
 
 ```
 sleep 30
-```
 
-```
 kubectl expose deployment production-deployment --port=8080 --target-port=8080 \
         --name=production-deployment-service --type=LoadBalancer -n prod
 ```
 
 ```
-sleep 20
+sleep 40
 kubectl get svc -n prod production-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 
 echo
