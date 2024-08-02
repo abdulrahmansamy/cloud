@@ -1,4 +1,5 @@
 # Implement CI-CD Pipelines on Google Cloud: Challenge Lab
+[Lab URL](https://partner.cloudskillsboost.google/course_templates/691/labs/498134)
 
 ## Task 1. Prework - Set up environment, enable APIs and create clusters
 ```
