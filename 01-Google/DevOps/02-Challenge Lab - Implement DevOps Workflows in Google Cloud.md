@@ -1,5 +1,5 @@
 # Implement DevOps Workflows in Google Cloud: Challenge Lab
-[lab URL](https://www.cloudskillsboost.google/paths/83/course_templates/716/labs/464399)
+[Lab URL](https://www.cloudskillsboost.google/paths/83/course_templates/716/labs/464399)
 
 ## Task 1. Create the lab resources
 ```
@@ -8,7 +8,7 @@ gcloud auth list
 export PROJECT_ID=$(gcloud config get-value project)
 export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format='value(projectNumber)')
 
-export REGION=us-east1
+export REGION=us-west1
 export ZONE=$REGION-c
 ```
 
