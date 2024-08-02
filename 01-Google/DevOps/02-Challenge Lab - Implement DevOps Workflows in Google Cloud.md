@@ -1,4 +1,6 @@
 # Implement DevOps Workflows in Google Cloud: Challenge Lab
+[lab URL](https://www.cloudskillsboost.google/paths/83/course_templates/716/labs/464399)
+
 ## Task 1. Create the lab resources
 ```
 gcloud auth list
