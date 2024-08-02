@@ -1,4 +1,4 @@
-# Cloud Architecting / Engineering
+# Cloud Engineering / Architecting
 
 ### 1- Google Cloud
 ### 2- Azure Cloud
