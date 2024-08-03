@@ -148,7 +148,7 @@ echo -ne "\nDone! \n"
 kubectl expose deployment development-deployment --port=8080 --target-port=8080 \
         --name=$DEVNS-deployment-service --type=LoadBalancer -n $DEVNS
 
-echo -e "$Light_Purple\n\t\tWaiting for the External Load Balancer IP of the exposed `production-deployment` is ready\n$NOCOLOR"
+echo -e "$Light_Purple\n\t\tWaiting for the External Load Balancer IP of the exposed 'development-deployment' to be ready\n$NOCOLOR"
 # bash
 SEC=0
 while  ! [ -n "$(kubectl get svc -n $DEVNS $DEVNS-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" ];
@@ -193,7 +193,7 @@ kubectl expose deployment production-deployment --port=8080 --target-port=8080 \
         --name=$PRODNS-deployment-service --type=LoadBalancer -n $PRODNS
 
 #### Function to check if the External Load Balancer IP of the exposed `production-deployment` is ready or not
-echo -e "$Light_Purple\n\t\tWaiting for the External Load Balancer IP of the exposed `production-deployment` is ready\n$NOCOLOR"
+echo -e "$Light_Purple\n\t\tWaiting for the External Load Balancer IP of the exposed 'production-deployment' to be ready\n$NOCOLOR"
 # bash
 SEC=0
 while  ! [ -n "$(kubectl get svc -n $PRODNS $PRODNS-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" ];
