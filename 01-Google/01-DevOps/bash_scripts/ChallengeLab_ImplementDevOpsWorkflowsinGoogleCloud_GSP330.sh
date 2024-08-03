@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash -e
 # Implement DevOps Workflows in Google Cloud: Challenge Lab
 
 
@@ -28,7 +28,7 @@ echo -e "$Yellow\nImplement DevOps Workflows in Google Cloud: Challenge Lab\n$NO
 
 echo -e "$Light_Yellow\n\tTask 0. Initializing the Lab\n$NOCOLOR"
 
-set +e
+#set +e
 gcloud auth list
 
 export PROJECT_ID=$(gcloud config get-value project)
