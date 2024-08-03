@@ -2,6 +2,7 @@
 # Roll back script
 
 ZONE=us-central1-a
+REGION="${ZONE%-*}"
 
 gcloud container clusters delete hello-cluster  --zone $ZONE --async
 

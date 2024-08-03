@@ -1,7 +1,7 @@
 #!/bin/bash 
 # Implement DevOps Workflows in Google Cloud: Challenge Lab
 
-set +e
+# set +e
 
 Black='\033[0;30m'
 Dark_Gray='\033[1;30m'
@@ -29,7 +29,6 @@ echo -e "$Yellow\nImplement DevOps Workflows in Google Cloud: Challenge Lab\n$NO
 
 echo -e "$Light_Yellow\n\tTask 0. Initializing the Lab\n$NOCOLOR"
 
-#set +e
 gcloud auth list
 
 export PROJECT_ID=$(gcloud config get-value project)
@@ -83,6 +82,7 @@ do
     let SEC=SEC+2
     sleep 2 
 done
+
 echo
 gcloud container clusters list --format="csv(name,status)"
 
