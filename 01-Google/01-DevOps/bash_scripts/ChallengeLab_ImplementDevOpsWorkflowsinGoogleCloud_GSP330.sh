@@ -28,6 +28,7 @@ echo -e "$Yellow\nImplement DevOps Workflows in Google Cloud: Challenge Lab\n$NO
 
 echo -e "$Light_Yellow\t\nTask 0. Initializing the Lab\n$NOCOLOR"
 
+set +e
 gcloud auth list
 
 export PROJECT_ID=$(gcloud config get-value project)
