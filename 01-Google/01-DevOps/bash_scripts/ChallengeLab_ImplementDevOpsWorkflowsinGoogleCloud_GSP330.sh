@@ -1,6 +1,7 @@
-#!/bin/bash -e
+#!/bin/bash 
 # Implement DevOps Workflows in Google Cloud: Challenge Lab
 
+set +e
 
 Black='\033[0;30m'
 Dark_Gray='\033[1;30m'
