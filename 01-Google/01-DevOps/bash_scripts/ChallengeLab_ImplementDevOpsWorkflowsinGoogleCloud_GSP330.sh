@@ -62,13 +62,13 @@ echo -e "$Light_Yellow\n\tTask 1. Create the lab resources\n$NOCOLOR"
 
 gcloud artifacts repositories create my-repository \
   --repository-format=docker \
-  --location=$REGION
+  --location=$REGION || true
 
 git config --global user.email email@email.com
 git config --global user.name mail
 
 gcloud beta container clusters create hello-cluster --zone $ZONE --release-channel regular --enable-autoscaling \
- --min-nodes 2 --max-nodes 6 --num-nodes 3 --cluster-version=1.29 --async
+ --min-nodes 2 --max-nodes 6 --num-nodes 3 --cluster-version=1.29 --async  || true
 
 # gcloud container clusters create "hello-cluster" --zone $ZONE --no-enable-basic-auth --cluster-version 1.29 --release-channel "regular" --machine-type "e2-medium" --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "100" --metadata disable-legacy-endpoints=true --scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" --max-pods-per-node "110" --num-nodes "3" --logging=SYSTEM,WORKLOAD --monitoring=SYSTEM --enable-ip-alias --default-max-pods-per-node "110" --enable-autoscaling --min-nodes "2" --max-nodes "6" --no-enable-master-authorized-networks --addons HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver --enable-managed-prometheus --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 --node-locations $ZONE --async
 
@@ -97,7 +97,7 @@ echo -e "$Light_Yellow\n\tTask 2. Create a repository in Cloud Source Repositori
 
 gcloud source repos create sample-app
 
-gcloud source repos clone sample-app --project=$PROJECT_ID
+gcloud source repos clone sample-app --project=$PROJECT_ID  || true
 
 gsutil cp -r gs://spls/gsp330/sample-app/* ~/sample-app
 
@@ -119,11 +119,11 @@ echo -e "$Light_Yellow\n\tTask 3. Create the Cloud Build Triggers\n$NOCOLOR"
 
 gcloud builds triggers create cloud-source-repositories --name=sample-app-prod-deploy --repo=sample-app \
  --build-config=cloudbuild.yaml --service-account="projects/$PROJECT_ID/serviceAccounts/$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com" \
- --branch-pattern='^master$'
+ --branch-pattern='^master$'  || true
 
 gcloud beta builds triggers create cloud-source-repositories --name=sample-app-dev-deploy \
 --repo=sample-app --build-config=cloudbuild-dev.yaml \
---service-account="projects/$PROJECT_ID/serviceAccounts/$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com"  --branch-pattern='^dev$'
+--service-account="projects/$PROJECT_ID/serviceAccounts/$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com"  --branch-pattern='^dev$'  || true
 
 ## Task 4. Deploy the first versions of the application
 echo -e "$Light_Yellow\n\tTask 4. Deploy the first versions of the application\n$NOCOLOR"
@@ -149,7 +149,7 @@ echo -ne "\nDone! \n"
 # sleep 30
 
 kubectl expose deployment development-deployment --port=8080 --target-port=8080 \
-        --name=$DEVNS-deployment-service --type=LoadBalancer -n $DEVNS
+        --name=$DEVNS-deployment-service --type=LoadBalancer -n $DEVNS  || true
 
 echo -e "$Light_Purple\n\t\tWaiting for the External Load Balancer IP of the exposed 'development-deployment' to be ready\n$NOCOLOR"
 # bash
@@ -193,7 +193,7 @@ echo -ne "\nDone! \n"
 # sleep 30
 
 kubectl expose deployment production-deployment --port=8080 --target-port=8080 \
-        --name=$PRODNS-deployment-service --type=LoadBalancer -n $PRODNS
+        --name=$PRODNS-deployment-service --type=LoadBalancer -n $PRODNS  || true
 
 #### Function to check if the External Load Balancer IP of the exposed `production-deployment` is ready or not
 echo -e "$Light_Purple\n\t\tWaiting for the External Load Balancer IP of the exposed 'production-deployment' to be ready\n$NOCOLOR"
@@ -327,7 +327,7 @@ kubectl -n $PRODNS get pods -o jsonpath \
 ## Perform the roll back
 echo -e "$Light_Blue\n\t\t## Perform the roll back\n$NOCOLOR"
 
-kubectl rollout undo deployment production-deployment  -n $PRODNS
+kubectl rollout undo deployment production-deployment  -n $PRODNS  || true
 
 # Waiting for the build
 for i in {1..10}; do
