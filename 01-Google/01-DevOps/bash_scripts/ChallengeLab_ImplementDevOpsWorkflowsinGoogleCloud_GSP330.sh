@@ -260,7 +260,7 @@ git commit -am "dev v2.0"
 git push -u origin dev
 
 # Waiting for the build
-for i in {1..30}; do
+for i in {1..60}; do
     echo -ne "Waiting for the build: $i\r"
     sleep 1
 done
@@ -301,7 +301,7 @@ git commit -am "prod v2.0"
 git push -u origin master
 
 # Waiting for the build
-for i in {1..30}; do
+for i in {1..60}; do
     echo -ne "Waiting for the build: $i\r"
     sleep 1
 done
@@ -330,7 +330,7 @@ echo -e "$Light_Blue\n\t\t## Perform the roll back\n$NOCOLOR"
 kubectl rollout undo deployment production-deployment  -n $PRODNS  || true
 
 # Waiting for the build
-for i in {1..10}; do
+for i in {1..60}; do
     echo -ne "Waiting for the build: $i\r"
     sleep 1
 done
