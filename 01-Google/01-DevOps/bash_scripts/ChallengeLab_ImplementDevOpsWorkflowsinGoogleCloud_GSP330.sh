@@ -156,7 +156,7 @@ echo -e "$Light_Purple\n\t\tWaiting for the External Load Balancer IP of the exp
 SEC=0
 while  ! [ -n "$(kubectl get svc -n $DEVNS $DEVNS-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" ];
 do 
-  echo -ne "\t Waiting for $DEVNS-deployment-service Load Balancer IP: $SEC"
+  echo -ne "\t Waiting for $DEVNS-deployment-service Load Balancer IP: $SEC\r"
   let SEC=SEC+1
   sleep 1
 done
@@ -201,7 +201,7 @@ echo -e "$Light_Purple\n\t\tWaiting for the External Load Balancer IP of the exp
 SEC=0
 while  ! [ -n "$(kubectl get svc -n $PRODNS $PRODNS-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" ];
 do 
-  echo -ne "\t Waiting for $PRODNS-deployment-service Load Balancer IP: $SEC"
+  echo -ne "\t Waiting for $PRODNS-deployment-service Load Balancer IP: $SEC\r"
   let SEC=SEC+1
   sleep 1
 done
