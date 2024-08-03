@@ -320,6 +320,7 @@ echo  http://`kubectl get svc -n $PRODNS $PRODNS-deployment-service -o jsonpath=
 
 echo  http://`kubectl get svc -n $PRODNS $PRODNS-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'`:8080/red
 
+sleep 10 
 
 ## Task 6. Roll back the production deployment
 echo -e "$Light_Yellow\n\tTask 6. Roll back the production deployment\n$NOCOLOR"
@@ -336,7 +337,7 @@ echo -e "$Light_Blue\n\t\t## Perform the roll back\n$NOCOLOR"
 kubectl rollout undo deployment production-deployment  -n $PRODNS  || true
 
 # Waiting for the build
-for i in {1..60}; do
+for i in {1..50}; do
     echo -ne "Waiting for the build: $i\r"
     sleep 1
 done
