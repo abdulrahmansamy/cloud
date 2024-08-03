@@ -77,7 +77,12 @@ gcloud container clusters list --format="csv(name,status)"
 SEC=0
 while gcloud container clusters list --format="csv(name,status)" | grep -q PROVISIONING
 do
+    # Calculate elapsed time
+    minutes=$((SECONDS / 60))
+    seconds=$((SECONDS % 60))
+
     echo -ne "Cluster still in Provisioning State: $SEC seconds\r"
+    printf "\rCluster still in Provisioning State - Elapsed time: %02d minutes and %02d seconds" $minutes $seconds
     let SEC=SEC+1
     sleep 1
 done
@@ -125,6 +130,7 @@ gcloud beta builds triggers create cloud-source-repositories --name=sample-app-d
 --repo=sample-app --build-config=cloudbuild-dev.yaml \
 --service-account="projects/$PROJECT_ID/serviceAccounts/$PROJECT_ID@$PROJECT_ID.iam.gserviceaccount.com"  --branch-pattern='^dev$'  || true
 
+sleep 20
 ## Task 4. Deploy the first versions of the application
 echo -e "$Light_Yellow\n\tTask 4. Deploy the first versions of the application\n$NOCOLOR"
 
