@@ -82,7 +82,7 @@ done
 gcloud container clusters list --format="csv(name,status)"
 
 echo
-echo -e "\n\t$Light_Green### Cluster in Running State ###\n$NOCOLOR"
+echo -e "\n\t${Light_Green}Cluster in Running State\n$NOCOLOR"
 
 gcloud container clusters get-credentials hello-cluster --zone $ZONE
 
@@ -126,7 +126,7 @@ gcloud beta builds triggers create cloud-source-repositories --name=sample-app-d
 echo -e "$Light_Yellow\n\tTask 4. Deploy the first versions of the application\n$NOCOLOR"
 
 ### Build the first development deployment
-echo -e "$Light_Blue\n\t\t### Build the first development deployment\n$NOCOLOR"
+echo -e "$Light_Blue\n\t\t## Build the first development deployment\n$NOCOLOR"
 
 git checkout dev
 sed -i "s/<version>/v1.0/g" cloudbuild-dev.yaml
@@ -169,7 +169,7 @@ echo  http://`kubectl get svc -n $DEVNS $DEVNS-deployment-service -o jsonpath='{
 
 
 ### Build the first production deployment
-echo -e "$Light_Blue\n\t\t### Build the first production deployment\n$NOCOLOR"
+echo -e "$Light_Blue\n\t\t## Build the first production deployment\n$NOCOLOR"
 
 git checkout master
 
@@ -198,7 +198,7 @@ echo -e "$Light_Purple\n\t\tWaiting for the External Load Balancer IP of the exp
 SEC=0
 while  ! [ -n "$(kubectl get svc -n $PRODNS $PRODNS-deployment-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" ];
 do 
-  echo -e "\t Waiting for $PRODNS-deployment-service Load Balancer IP: $SEC"
+  echo -ne "\t Waiting for $PRODNS-deployment-service Load Balancer IP: $SEC"
   let SEC=SEC+1
   sleep 1
 done
@@ -231,7 +231,7 @@ echo
 ## Task 5. Deploy the second versions of the application
 echo -e "$Light_Yellow\n\tTask 5. Deploy the second versions of the application\n$NOCOLOR"
 ### Build the second development deployment
-echo -e "$Light_Blue\n\t\t### Build the second development deployment\n$NOCOLOR"
+echo -e "$Light_Blue\n\t\t## Build the second development deployment\n$NOCOLOR"
 
 git checkout dev
 
