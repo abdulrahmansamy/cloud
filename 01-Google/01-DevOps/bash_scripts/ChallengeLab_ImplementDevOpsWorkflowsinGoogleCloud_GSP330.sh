@@ -81,7 +81,7 @@ do
     minutes=$((SECONDS / 60))
     seconds=$((SECONDS % 60))
 
-    echo -ne "Cluster still in Provisioning State: $SEC seconds\r"
+    # echo -ne "Cluster still in Provisioning State: $SEC seconds\r"
     printf "\rCluster still in Provisioning State - Elapsed time: %02d minutes and %02d seconds" $minutes $seconds
     let SEC=SEC+1
     sleep 1
