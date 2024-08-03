@@ -76,7 +76,7 @@ gcloud container clusters list --format="csv(name,status)"
 SEC=0
 while gcloud container clusters list --format="csv(name,status)" | grep -q PROVISIONING
 do
-    echo -ne "\nCluster still in Provisioning State: $SEC"
+    echo -ne "Cluster still in Provisioning State: $SEC seconds\r"
     let SEC=SEC+1
     sleep 1
 done
