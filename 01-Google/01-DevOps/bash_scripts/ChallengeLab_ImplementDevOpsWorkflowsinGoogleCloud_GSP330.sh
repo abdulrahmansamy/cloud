@@ -26,7 +26,7 @@ echo -e "$Yellow\nImplement DevOps Workflows in Google Cloud: Challenge Lab\n$NO
 ## Task 0. Initializing the Lab
 
 
-echo -e "$Light_Yellow\t\nTask 0. Initializing the Lab\n$NOCOLOR"
+echo -e "$Light_Yellow\n\tTask 0. Initializing the Lab\n$NOCOLOR"
 
 set +e
 gcloud auth list
