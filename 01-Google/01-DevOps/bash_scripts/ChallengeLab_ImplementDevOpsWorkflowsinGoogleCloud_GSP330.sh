@@ -73,10 +73,12 @@ gcloud beta container clusters create hello-cluster --zone $ZONE --release-chann
 
 gcloud container clusters list --format="csv(name,status)"
 
+SEC=0
 while gcloud container clusters list --format="csv(name,status)" | grep -q PROVISIONING
 do
-    echo "Cluster still in Provisioning State"
-    sleep 2
+    echo -ne "\nCluster still in Provisioning State: $SEC"
+    let SEC=SEC+1
+    sleep 1
 done
 
 gcloud container clusters list --format="csv(name,status)"
@@ -137,7 +139,7 @@ git commit -am "dev v1.0"
 git push -u origin dev
 
 # Waiting for the build
-for i in {1..30}; do
+for i in {1..60}; do
     echo -ne "Waiting for the build: $i\r"
     sleep 1
 done
@@ -181,7 +183,7 @@ git commit -am "prod v1.0"
 git push -u origin master
 
 # Waiting for the build
-for i in {1..30}; do
+for i in {1..60}; do
     echo -ne "Waiting for the build: $i\r"
     sleep 1
 done
