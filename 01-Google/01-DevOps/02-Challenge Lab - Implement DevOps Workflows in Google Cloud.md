@@ -6,9 +6,7 @@ To run this lab as bash script please use this snippet
 export ZONE=
 
 curl -LO https://raw.githubusercontent.com/abdulrahmansamy/cloud/master/01-Google/01-DevOps/bash_scripts/ChallengeLab_ImplementDevOpsWorkflowsinGoogleCloud_GSP330.sh
-
 sudo chmod +x ChallengeLab_ImplementDevOpsWorkflowsinGoogleCloud_GSP330.sh
-
 ./ChallengeLab_ImplementDevOpsWorkflowsinGoogleCloud_GSP330.sh
 ```
 
