@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash 
 # Implement DevOps Workflows in Google Cloud: Challenge Lab
 
 
@@ -21,7 +21,7 @@ Light_White='\033[0;37m'
 
 NOCOLOR='\033[0m'
 
-echo -e "$Light_Yellow\nImplement DevOps Workflows in Google Cloud: Challenge Lab\n$NOCOLOR"
+echo -e "$Yellow\nImplement DevOps Workflows in Google Cloud: Challenge Lab\n$NOCOLOR"
 
 ## Task 0. Initializing the Lab
 
