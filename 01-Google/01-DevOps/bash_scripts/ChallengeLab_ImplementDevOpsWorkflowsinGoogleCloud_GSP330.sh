@@ -78,13 +78,13 @@ SEC=0
 while gcloud container clusters list --format="csv(name,status)" | grep -q PROVISIONING
 do
     # Calculate elapsed time
-    minutes=$((SECONDS / 60))
-    seconds=$((SECONDS % 60))
+    minutes=$((SEC / 60))
+    seconds=$((SEC % 60))
 
     # echo -ne "Cluster still in Provisioning State: $SEC seconds\r"
     printf "\rCluster still in Provisioning State - Elapsed time: %02d minutes and %02d seconds" $minutes $seconds
-    let SEC=SEC+1
-    sleep 1
+    let SEC=SEC+2
+    sleep 2 
 done
 
 gcloud container clusters list --format="csv(name,status)"
