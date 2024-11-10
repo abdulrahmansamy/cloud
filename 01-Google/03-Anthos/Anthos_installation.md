@@ -413,8 +413,6 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 
 ```
 
--j&FaR_5
-A*bzSa@4
 
 
 ## Create user Cluster
