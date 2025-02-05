@@ -1,3 +1,27 @@
+# Setup terraform to control remotely
+
+## Set Up Authentication:
+
+Go to the GCP Console.
+
+Navigate to IAM & Admin > Service accounts.
+
+Create a new service account and assign the necessary roles (e.g., Compute Engine Admin, Storage Admin).
+
+Generate a JSON key for the service account and download it.
+
+Set Environment Variables: Set the GOOGLE_APPLICATION_CREDENTIALS environment variable to the path of the JSON key file
+
+```bash
+export GOOGLE_APPLICATION_CREDENTIALS="path/to/your/keyfile.json"
+
+```
+
+```bash
+mkdir my-terraform-project
+cd my-terraform-project
+terraform init
+```
 
 ```
 terraform -version
@@ -6,7 +30,7 @@ terraform -version
 mkdir tfinfra && cd $_
 ```
 ```
-touch provider.tf edit $_
+touch provider.tf && edit $_
 ```
 ```
   provider "google" {
@@ -19,7 +43,8 @@ touch provider.tf edit $_
 terraform init
 ```
 ```
-touch instance.tf edit $_
+touch instance.tf 
+edit $_
 ```
 ```
 resource google_compute_instance "vm_instance" {
@@ -69,7 +94,8 @@ variable "bucket_name" {
 }
 ```
 ```
-touch outputs.tf edit $_ 
+touch outputs.tf 
+edit $_ 
 ```
 ```
 output "network_IP" {
@@ -89,6 +115,12 @@ output "instance_link" {
  ```
 terraform apply --auto-approve --var "instance_name=myinstance" --var "instance_zone=europe-west4-b"
  ```
+we can use plan out file
+```
+terraform plan -out=tfplan
+terraform apply tfplan
+```
+
 ```
  touch exp.tf && edit $_
 ```
