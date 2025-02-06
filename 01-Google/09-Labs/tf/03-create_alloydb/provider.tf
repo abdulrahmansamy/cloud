@@ -1,3 +1,4 @@
+/*
 terraform {
   required_providers {
     google = {
@@ -7,11 +8,11 @@ terraform {
 
   }
 }
-
+*/
 
 provider "google" {
-  project     = "qwiklabs-gcp-03-406aa89dadcb"
-  region      = "us-east1"
-  zone        = "us-east1-d"
-  credentials = file("gcp_key.json")
+  project     = var.project_id
+  region      = var.region
+  zone        = var.zone
+  credentials = file("${var.project_id}.json")
 }
