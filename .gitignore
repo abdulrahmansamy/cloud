@@ -1,7 +1,14 @@
 # Other files and folders
 .DS_Store
 .vscode
-.tfstate
-.tfstate.backup
-.hcl
-.lock.hcl
+*.tfstate
+*.tfstate.backup
+*.hcl
+*.lock.hcl
+.terraform
+*.terraform
+.terraform/*
+.tfplan
+*.tfstate
+*.tfstate.*
+crash.log

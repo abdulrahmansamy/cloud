@@ -32,11 +32,12 @@ mkdir tfinfra && cd $_
 ```
 touch provider.tf && edit $_
 ```
-```
+```terraform
   provider "google" {
   project = "qwiklabs-gcp-01-093294853782"
   region  = "europe-west4"
   zone    = "europe-west4-b"
+  credentials = file ("gcp_key.json")
 }
 ```
 ```
