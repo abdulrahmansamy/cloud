@@ -1,6 +1,6 @@
-project_id   = "qwiklabs-gcp-00-ec1cfffd0454"
-region       = "us-west1"
-zone         = "us-west1-a"
+project_id   = "qwiklabs-gcp-02-419a741a6697"
+region       = "us-east4"
+zone         = "us-east4-c"
 network_name = "peering-network"
 
 /*
