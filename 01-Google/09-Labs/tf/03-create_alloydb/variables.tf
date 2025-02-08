@@ -39,8 +39,25 @@ variable "clusters_list" {
     cluster_id = optional(string)
     primary_instance = optional(object(
       {
-        instance_id       = optional(string)
-        machine_cpu_count = optional(number)
+        instance_id       = string,
+        display_name      = optional(string),
+        database_flags    = optional(map(string))
+        labels            = optional(map(string))
+        annotations       = optional(map(string))
+        gce_zone          = optional(string)
+        availability_type = optional(string)
+
+        machine_cpu_count  = optional(number, 2)
+        ssl_mode           = optional(string)
+        require_connectors = optional(bool)
+        query_insights_config = optional(object({
+          query_string_length     = optional(number)
+          record_application_tags = optional(bool)
+          record_client_address   = optional(bool)
+          query_plans_per_minute  = optional(number)
+        }))
+        enable_public_ip = optional(bool, false)
+        cidr_range       = optional(list(string))
       }
     ))
 
@@ -69,7 +86,7 @@ variable "admin_user" {
   description = "The admin user for AlloyDB."
   type        = map(any)
   default = {
-    user     = null 
+    user     = null
     password = "your-password"
   }
 }
