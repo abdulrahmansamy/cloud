@@ -13,5 +13,5 @@
 *.tfstate.*
 crash.log
 
-gcp_key.json
+*gcp_key.json
 *.json
