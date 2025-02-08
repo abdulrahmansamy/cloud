@@ -14,3 +14,4 @@
 crash.log
 
 gcp_key.json
+*.json
