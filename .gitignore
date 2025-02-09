@@ -14,4 +14,4 @@
 crash.log
 
 *gcp_key.json
-*.json
+qwiklabs-gcp-[0-9][0-9]-[a-z0-9]*.json
