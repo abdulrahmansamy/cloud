@@ -9,6 +9,11 @@ variable "region" {
   default     = "us-central1"
 }
 
+variable "zone" {
+  description = "Zone where AlloyDb cluster will be deployed"
+  type        = string
+}
+
 variable "cluster_id" {
   description = "The ID of the existing AlloyDB cluster."
   type        = string
@@ -26,8 +31,18 @@ variable "read_pool_instance_count" {
   default     = 2
 }
 
-variable "machine_type" {
+variable "read_pool_instance_node_count" {
+  description = "number of nodes in a read pool instance."
+  type        = number
+  default     = 2
+}
+variable "cpu_count" {
   description = "The machine type for the read pool instances."
+  type        = number
+  default     = 2
+}
+
+variable "backup_id" {
+  description = "Unique ID for the backup"
   type        = string
-  default     = "db-custom-4-32768"
 }
