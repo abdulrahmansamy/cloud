@@ -18,7 +18,7 @@ gcloud alloydb instances create lab-instance \
 gcloud alloydb instances create lab-instance-rp1 \
     --cluster=lab-cluster \
     --region=$REGION \
-    --project=$PROJECT_ID
+    --project=$PROJECT_ID \
     --instance-type=READ_POOL \
     --cpu-count=2 \
     --read-pool-node-count=2
@@ -27,3 +27,4 @@ gcloud alloydb backups create lab-backup \
     --cluster=lab-cluster \
     --region=$REGION \
     --project=$PROJECT_ID
+
