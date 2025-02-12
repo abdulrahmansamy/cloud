@@ -13,5 +13,5 @@ output "read_pool_instances" {
 
 output "primary_instance_private_ip_address" {
   description = "primary instance public IP"
-  value = module.alloy-db.primary_instance.ip_address
+  value       = module.alloy-db.primary_instance.ip_address
 }
