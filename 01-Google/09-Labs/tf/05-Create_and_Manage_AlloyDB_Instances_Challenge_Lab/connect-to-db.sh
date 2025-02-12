@@ -1,4 +1,4 @@
-export ALLOYDB=10.109.0.2
+export ALLOYDB=10.109.0.8
 
 echo $ALLOYDB  > alloydbip.txt 
 

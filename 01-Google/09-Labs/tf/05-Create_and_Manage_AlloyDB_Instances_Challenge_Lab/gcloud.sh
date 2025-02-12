@@ -31,7 +31,17 @@ gcloud alloydb backups create lab-backup \
 
 gcloud alloydb clusters list
 
+
+
+################################
 ##### Deleting the Cluster #####
+################################
+
+gcloud alloydb instances delete lab-instance \
+    --async \
+    --cluster=lab-cluster \
+    --region=$REGION \
+    --project=$PROJECT_ID
 
 gcloud alloydb clusters delete lab-cluster \
     --force \
@@ -40,6 +50,6 @@ gcloud alloydb clusters delete lab-cluster \
 
 
 gcloud alloydb backups delete lab-backup \
-    --cluster=lab-cluster \
     --region=$REGION \
     --project=$PROJECT_ID
+    
