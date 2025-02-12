@@ -1,7 +1,7 @@
 
-project_id                    = "qwiklabs-gcp-03-583f2f60cb2c"
-region                        = "us-east4"
-zone                          = "us-east4-a"
+project_id                    = "qwiklabs-gcp-01-196f0b02b8e1"
+region                        = "us-west1"
+zone                          = "us-west1-a"
 network_name                  = "peering-network"
 cluster_id                    = "lab-cluster"
 instance_id                   = "lab-instance"
