@@ -28,3 +28,18 @@ gcloud alloydb backups create lab-backup \
     --region=$REGION \
     --project=$PROJECT_ID
 
+
+gcloud alloydb clusters list
+
+##### Deleting the Cluster #####
+
+gcloud alloydb clusters delete lab-cluster \
+    --force \
+    --region=$REGION \
+    --project=$PROJECT_ID
+
+
+gcloud alloydb backups delete lab-backup \
+    --cluster=lab-cluster \
+    --region=$REGION \
+    --project=$PROJECT_ID
