@@ -1,10 +1,18 @@
-PROJECT_ID=qwiklabs-gcp-01-196f0b02b8e1
+PROJECT_ID=qwiklabs-gcp-00-b6b2c2834513
 REGION=us-west1
+ZONE=us-west1-a
 
-gcloud beta alloydb clusters create SAMPLE-CLUSTER-ID \
+gcloud alloydb clusters create lab-cluster \
     --password=Change3Me \
     --network=peering-network \
     --region=$REGION \
+    --project=$PROJECT_ID
+
+gcloud alloydb instances create lab-instance \
+    --instance-type=PRIMARY \
+    --cpu-count=2 \
+    --region=$REGION  \
+    --cluster=lab-cluster  \
     --project=$PROJECT_ID
 
 gcloud alloydb instances create lab-instance-rp1 \
