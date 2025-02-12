@@ -37,19 +37,27 @@ gcloud alloydb clusters list
 ##### Deleting the Cluster #####
 ################################
 
+## Delete Read Pool Instance
+gcloud alloydb instances delete lab-instance-rp1 \
+    --async \
+    --cluster=lab-cluster \
+    --region=$REGION \
+    --project=$PROJECT_ID
+
+## Delete Primary Instance
 gcloud alloydb instances delete lab-instance \
     --async \
     --cluster=lab-cluster \
     --region=$REGION \
     --project=$PROJECT_ID
 
+## Delete Cluster
 gcloud alloydb clusters delete lab-cluster \
     --force \
     --region=$REGION \
     --project=$PROJECT_ID
 
-
+## Delete Backup
 gcloud alloydb backups delete lab-backup \
     --region=$REGION \
     --project=$PROJECT_ID
-    
