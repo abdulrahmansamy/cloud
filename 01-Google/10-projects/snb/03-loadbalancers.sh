@@ -1,3 +1,0 @@
-gcloud compute instance-groups unmanaged create backend-instance-group-1 --project=poc-prj-01 --zone=me-central2-a && \
-gcloud compute instance-groups unmanaged set-named-ports backend-instance-group-1 --project=poc-prj-01 --zone=me-central2-a --named-ports=http:80,https:443 && \
-gcloud compute instance-groups unmanaged add-instances backend-instance-group-1 --project=poc-prj-01 --zone=me-central2-a --instances=backend-application-01
