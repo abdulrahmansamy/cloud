@@ -128,6 +128,7 @@ gcloud compute reset-windows-password <WINDOWS_BASTION_NAME> --zone=<ZONE>
 | Windows      | RDP      | 3389 | RDP client  | `gcloud compute start-iap-tunnel <WINDOWS_BASTION_NAME> 3389 --zone=<ZONE> --local-host-port=localhost:3389` |
 
 ---
+Replace `<PROJECT_ID>`, `<ZONE>`, `<LINUX_BASTION_NAME>`, and `<WINDOWS_BASTION_NAME>` with your actual values.  
 
-This document is generic and reusable across projects. Replace `<PROJECT_ID>`, `<ZONE>`, `<LINUX_BASTION_NAME>`, and `<WINDOWS_BASTION_NAME>` with your actual values.  
+This document prepared by **Abdul Rahman Samy**, 
 
