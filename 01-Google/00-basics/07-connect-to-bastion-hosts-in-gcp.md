@@ -130,5 +130,5 @@ gcloud compute reset-windows-password <WINDOWS_BASTION_NAME> --zone=<ZONE>
 ---
 Replace `<PROJECT_ID>`, `<ZONE>`, `<LINUX_BASTION_NAME>`, and `<WINDOWS_BASTION_NAME>` with your actual values.  
 
-This document prepared by **Abdul Rahman Samy**, 
+This document prepared by **Abdul Rahman Samy**.
 
